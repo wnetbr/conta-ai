@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Quantum Vision Counter & Protractor</title>
+    <style>
+        :root { --neon: #00f2ff; --warn: #ffcc00; --bg: #050505; }
+        body { margin: 0; background: var(--bg); color: white; font-family: 'Segoe UI', Roboto, sans-serif; overflow: hidden; }
+        
+        /* HUD Superior */
+        #hud {
+            position: fixed; top: 0; width: 100%; height: 90px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+            display: flex; justify-content: space-around; align-items: center; z-index: 100;
+        }
+        .metric { text-align: center; border-left: 1px solid #333; flex: 1; }
+        .metric:first-child { border: none; }
+        .label { font-size: 10px; letter-spacing: 2px; color: var(--neon); text-transform: uppercase; }
+        .value { font-size: 28px; font-weight: 300; display: block; font-family: monospace; }
+
+        /* Container de Vídeo */
+        #viewport { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+        video { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.1); }
+        canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+        /* Controles */
+        .toolbar {
+            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
+            background: rgba(15, 15, 15, 0.85); padding: 8px; border-radius: 50px;
+            display: flex; gap: 8px; backdrop-filter: blur(10px); border: 1px solid #333;
+            z-index: 1000;
+        }
+        button {
+            background: transparent; border: none; color: white; padding: 12px 20px;
+            border-radius: 25px; cursor: pointer; transition: 0.3s; font-size: 13px;
+        }
+        button.active { background: var(--neon); color: black; font-weight: bold; }
+
+        /* Painel Lateral de Ajuste */
+        .side-panel {
+            position: fixed; right: 15px; top: 50%; transform: translateY(-50%);
+            background: rgba(0,0,0,0.6); padding: 15px; border-radius: 15px;
+            display: flex; flex-direction: column; align-items: center; gap: 10px;
+        }
+        input[type=range] { writing-mode: bt-lr; appearance: slider-vertical; width: 8px; height: 150px; }
+
+        /* Overlay de Permissão/Carregamento */
+        #overlay-msg {
+            position: fixed; inset: 0; background: var(--bg);
+            display: flex; flex-direction: column; justify-content: center;
+            align-items: center; z-index: 9999; text-align: center; padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="overlay-msg">
+        <h2>Aguardando Permissões</h2>
+        <p>Acesse a câmera para iniciar a medição.</p>
+        <button onclick="initCamera()" style="background: var(--neon); color: black;">ATIVAR CÂMERA</button>
+    </div>
+
+    <div id="hud">
+        <div class="metric">
+            <span class="label">Contagem (Blobs)</span>
+            <span id="v-count" class="value">0</span>
+        </div>
+        <div class="metric">
+            <span class="label">Ângulo Relativo</span>
+            <span id="v-angle" class="value">0°</span>
+        </div>
+    </div>
+
+    <div id="viewport">
+        <video id="webcam" autoplay playsinline></video>
+        <canvas id="canvas"></canvas>
+    </div>
+
+    <div class="side-panel">
+        <span style="font-size: 10px;">SENSIB.</span>
+        <input type="range" id="threshold" min="20" max="230" value="120">
+    </div>
+
+    <div class="toolbar">
+        <button id="btn-count" class="active" onclick="setMode('count')">CONTAR</button>
+        <button id="btn-angle" onclick="setMode('angle')">ÂNGULO</button>
+        <button onclick="flipCamera()">GIRAR CÂMERA</button>
+        <button onclick="resetData()">RESET</button>
+    </div>
+
+    <script>
+        const video = document.getElementById('webcam');
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d', { alpha: false });
+        const tSlider = document.getElementById('threshold');
+        
+        let mode = 'count';
+        let points = [];
+        let currentFacingMode = "environment";
+
+        async function initCamera() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: { 
+                        facingMode: currentFacingMode,
+                        width: { ideal: 1280 },
+                        height: { ideal: 720 }
+                    },
+                    audio: false
+                });
+                video.srcObject = stream;
+                document.getElementById('overlay-msg').style.display = 'none';
+                
+                video.onloadedmetadata = () => {
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    render();
+                };
+            } catch (err) {
+                alert("Erro ao acessar câmera: " + err.message);
+            }
+        }
+
+        function setMode(m) {
+            mode = m;
+            document.getElementById('btn-count').classList.toggle('active', m === 'count');
+            document.getElementById('btn-angle').classList.toggle('active', m === 'angle');
+        }
+
+        function resetData() { points = []; }
+
+        function flipCamera() {
+            currentFacingMode = currentFacingMode === "user" ? "environment" : "user";
+            initCamera();
+        }
+
+        // Interação para Medir Ângulo
+        canvas.addEventListener('click', (e) => {
+            if (mode === 'angle') {
+                const rect = canvas.getBoundingClientRect();
+                const x = (e.clientX - rect.left) * (canvas.width / rect.width);
+                const y = (e.clientY - rect.top) * (canvas.height / rect.height);
+                points.push({x, y});
+                if (points.length > 3) points.shift();
+            }
+        });
+
+        function render() {
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            
+            if (mode === 'count') {
+                processCount();
+            } else {
+                processAngle();
+            }
+
+            requestAnimationFrame(render);
+        }
+
+        function processCount() {
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const data = imageData.data;
+            const threshold = parseInt(tSlider.value);
+            let activePixels = 0;
+
+            // Algoritmo de análise por luminância
+            for (let i = 0; i < data.length; i += 32) { // Step de 32 para alta performance
+                const r = data[i];
+                const g = data[i+1];
+                const b = data[i+2];
+                const brightness = (r + g + b) / 3;
+
+                if (brightness > threshold) {
+                    activePixels++;
+                    // Opcional: desenhar feedback visual de detecção (pontos verdes)
+                    data[i] = 0; data[i+1] = 242; data[i+2] = 255; 
+                }
+            }
+
+            // Normalização: Aproximadamente 80 pixels por objeto pequeno
+            // Esse valor é ajustável conforme o zoom/tamanho do item
+            const estimated = Math.floor(activePixels / 4); 
+            document.getElementById('v-count').innerText = estimated.toLocaleString();
+        }
+
+        function processAngle() {
+            ctx.strokeStyle = '#00f2ff';
+            ctx.fillStyle = '#00f2ff';
+            ctx.lineWidth = 4;
+
+            points.forEach((p, i) => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, 8, 0, Math.PI * 2);
+                ctx.fill();
+                if (i > 0) {
+                    ctx.beginPath();
+                    ctx.moveTo(points[i-1].x, points[i-1].y);
+                    ctx.lineTo(p.x, p.y);
+                    ctx.stroke();
+                }
+            });
+
+            if (points.length === 3) {
+                const ang = calcAngle(points[0], points[1], points[2]);
+                document.getElementById('v-angle').innerText = ang.toFixed(1) + "°";
+            }
+        }
+
+        function calcAngle(p1, p2, p3) {
+            const a = Math.pow(p2.x-p1.x,2) + Math.pow(p2.y-p1.y,2);
+            const b = Math.pow(p2.x-p3.x,2) + Math.pow(p2.y-p3.y,2);
+            const c = Math.pow(p3.x-p1.x,2) + Math.pow(p3.y-p1.y,2);
+            const res = Math.acos( (a+b-c) / Math.sqrt(4*a*b) );
+            return (res * 180) / Math.PI || 0;
+        }
+    </script>
+</body>
+</html>

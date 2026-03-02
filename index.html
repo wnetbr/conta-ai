@@ -79,7 +79,7 @@
         /* --- HEADER COM IMAGEM DE FUNDO COMPLETA --- */
         header {
             background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-                        url('https://ibb.co/xKwgPnj7.png');
+                        url('https://lh3.googleusercontent.com/d/1wCNVFFomvEfZv7I-VWbW9L9E3u_4ctBc');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -190,7 +190,6 @@
             max-width: 130px;
             max-height: 50px;
             object-fit: contain;
-            /* REMOVIDO FILTRO GRAYSCALE PARA EXIBIR CORES NORMAIS */
             filter: none;
             opacity: 1;
             transition: 0.3s;
@@ -372,28 +371,51 @@
             .btn-negociar { font-size: 0.7rem; padding: 10px 5px; box-shadow: 0 2px 0 #d35400; }
         }
 
+        /* --- MODAL CUSTOMIZADO --- */
         #modal-galeria {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.9); z-index: 11000;
             justify-content: center; align-items: center; backdrop-filter: blur(8px);
+            padding: 20px;
         }
         .modal-content {
-            background: white; padding: 30px; max-width: 500px; width: 95%;
+            background: white; padding: 25px; max-width: 800px; width: 100%;
             position: relative; border-radius: 12px; text-align: center;
             box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            max-height: 90vh; overflow-y: auto;
             animation: zoomIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
        
-        .fechar-modal { position: absolute; top: -50px; right: 0; color: white; font-size: 40px; cursor: pointer; }
-        #img-principal { width: 100%; max-height: 300px; object-fit: contain; margin-bottom: 20px; }
-        #btn-whats-modal {
-            background: var(--whatsapp-green); color: white; border: none; padding: 18px;
-            cursor: pointer; font-weight: bold; width: 100%; border-radius: 8px;
-            display: flex; justify-content: center; align-items: center; gap: 10px;
-            font-size: 1.1rem; transition: all 0.3s;
+        .fechar-modal { position: absolute; top: 10px; right: 15px; color: #333; font-size: 30px; cursor: pointer; z-index: 100; }
+        
+        /* GRADE DE CONTATOS NO MODAL */
+        .grid-contatos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
         }
-        #btn-whats-modal:hover { transform: scale(1.03); background: #21bd5c; }
+        .contato-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+        }
+        .contato-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+        .btn-whats-individual {
+            background: var(--whatsapp-green); color: white; border: none; padding: 10px;
+            cursor: pointer; font-weight: bold; width: 100%; border-radius: 6px;
+            display: flex; justify-content: center; align-items: center; gap: 5px;
+            font-size: 0.75rem; transition: 0.3s; text-decoration: none;
+        }
+        .btn-whats-individual:hover { background: #21bd5c; transform: translateY(-2px); }
 
         footer {
             background: var(--stihl-grey-dark); color: white; text-align: center;
@@ -450,15 +472,47 @@
 
 <div id="modal-galeria" onclick="fecharModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
-        <span class="fechar-modal" onclick="fecharModal()">&times;</span>
-        <img id="img-principal" src="">
-        <h2 id="modal-titulo"></h2>
-        <div class="preco" style="color: var(--stihl-orange); font-weight: 900; font-size: 1.8rem; margin-bottom: 10px;">Consulte Preço</div>
-        <p style="color: #666; margin-bottom: 20px;">Produto original STIHL com garantia e assistência técnica especializada.</p>
-        <button id="btn-whats-modal">
-            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.886.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.89 4.44-9.892 9.886-.001 2.15.636 3.737 1.732 5.341l-1.01 3.691 3.77-.986z"/></svg>
-            CHAMAR NO WHATSAPP
-        </button>
+        <span class="fechar-modal" onclick="fecharModal()">×</span>
+        
+        <h2 id="modal-titulo" style="margin-top: 10px;"></h2>
+        <p style="color: #666; margin-bottom: 5px;">Escolha uma loja para negociar este produto:</p>
+        
+        <div class="grid-contatos">
+            <div class="contato-item">
+                <img src="https://i.ibb.co/BxyXYSB/4976620624000257094.jpg" alt="SENADOR - AC"> <a href="https://wa.me/5500000000000" target="_blank" class="btn-whats-individual"> RIO BRANCO - AC
+                SENADOR
+                </a>
+            </div>
+            
+            <div class="contato-item">
+                <img src="https://i.ibb.co/TqwB0mj5/4976620624000257038-2.jpg" alt="BOSQUE - AC"> <a href="https://wa.me/5568999807980" target="_blank" class="btn-whats-individual"> RIO BRANCO - AC
+                BOSQUE
+                
+                </a>
+            </div>
+            
+            <div class="contato-item">
+               <img src="https://i.ibb.co/mVMRWNn8/4976620624000257037-2.jpg" alt="SENADOR - AC"> <a href="https://wa.me/5500000000000" target="_blank" class="btn-whats-individual"> RIO BRANCO - AC
+               ESTAÇÃO
+                </a>
+            </div>
+            
+            <div class="contato-item">
+                <img src="https://via.placeholder.com/150?text=Foto+4" alt="PLATÔ DO PIQUIÁ - AM"> <a href="https://wa.me/5500000000000" target="_blank" class="btn-whats-individual"> BOCA DO ACRE - AM
+                PLATÔ DO PIQUIÁ
+                </a>
+            </div>
+            
+            <div class="contato-item">
+                <img src="https://via.placeholder.com/150?text=Foto+5" alt="CENTRO - AM"> <a href="https://wa.me/5500000000000" target="_blank" class="btn-whats-individual"> BOCA DO ACRE - AM
+                CENTRO
+                </a>
+            </div>
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+        <div class="preco" style="color: var(--stihl-orange); font-weight: 900; font-size: 1.5rem;">Consulte Preço</div>
+        <p style="color: #888; font-size: 0.9rem;">Produtos Originais com Garantia.</p>
     </div>
 </div>
 
@@ -561,12 +615,6 @@
     const campoBusca = document.getElementById('busca');
     const modal = document.getElementById('modal-galeria');
 
-    function irParaWhats(nomeProduto) {
-        const numero = "5597991840894";
-        const mensagem = encodeURIComponent(`Olá! Gostaria de consultar o preço e disponibilidade do produto: ${nomeProduto}.`);
-        window.open(`https://wa.me/${numero}?text=${mensagem}`, '_blank');
-    }
-
     function renderizar(lista) {
         vitrine.innerHTML = "";
         lista.forEach(p => {
@@ -582,16 +630,14 @@
                     <h3>${p.nome}</h3>
                     <span class="preco">${p.preco}</span>
                 </div>
-                <button class="btn-negociar" onclick="event.stopPropagation(); irParaWhats('${p.nome}')">Negociar</button>
+                <button class="btn-negociar" onclick="event.stopPropagation(); abrirGaleria(${JSON.stringify(p).replace(/"/g, '&quot;')})">Negociar</button>
             `;
             vitrine.appendChild(card);
         });
     }
 
     function abrirGaleria(p) {
-        document.getElementById('img-principal').src = p.fotos[0];
         document.getElementById('modal-titulo').innerText = p.nome;
-        document.getElementById('btn-whats-modal').onclick = () => irParaWhats(p.nome);
         modal.style.display = "flex";
         document.body.style.overflow = "hidden";
     }

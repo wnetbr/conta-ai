@@ -232,7 +232,7 @@
             position: relative;
             overflow: hidden;
             animation: fadeIn 0.6s ease forwards;
-            cursor: pointer;
+            cursor: default; /* Mudado para default pois o card todo não é mais um link */
         }
 
         .card::before {
@@ -297,6 +297,7 @@
             align-items: center;
             justify-content: center;
             position: relative;
+            cursor: zoom-in; /* Indica que a imagem pode ser ampliada */
         }
 
         .card img {
@@ -372,7 +373,7 @@
         }
 
         /* --- MODAL CUSTOMIZADO --- */
-        #modal-galeria {
+        #modal-galeria, #modal-imagem {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.9); z-index: 11000;
             justify-content: center; align-items: center; backdrop-filter: blur(8px);
@@ -385,9 +386,20 @@
             max-height: 90vh; overflow-y: auto;
             animation: zoomIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
+        
+        /* Modal de Imagem Específico */
+        .modal-image-only {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 8px;
+            animation: zoomIn 0.3s ease;
+        }
+
         @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
        
         .fechar-modal { position: absolute; top: 10px; right: 15px; color: #333; font-size: 30px; cursor: pointer; z-index: 100; }
+        .fechar-modal-branca { color: white; position: fixed; top: 20px; right: 20px; font-size: 40px; cursor: pointer; }
         
         /* GRADE DE CONTATOS NO MODAL */
         .grid-contatos {
@@ -462,7 +474,7 @@
         <div class="brand-slide"><img src="https://kaef.shop/wp-content/uploads/2023/09/KAEF-Logo-schwarz.png" alt="Kaef"></div>
         <div class="brand-slide"><img src="https://logodownload.org/wp-content/uploads/2017/04/mondial-logo-1.png" alt="Mondial"></div>
         <div class="brand-slide"><img src="https://cdn.awsli.com.br/400x300/566/566663/logo/89abae50f7.png" alt="Chiaperini"></div>
-        <div class="brand-slide"><img src="https://www.gobamco.com/wp-content/uploads/2014/04/IN-Logo-Yellow-Black._V391056655_.gif" alt="Invicta"></div><div class="brand-slide"><img src="https://www.ruzalem.com.br/image/cache/catalog/marcas/mor-600x315w.jpg" alt="Mor"></div>
+        <div class="brand-slide"><img src="https://www.gobamco.com/wp-content/uploads/2014/04/IN-Logo-Yellow-Black._V391056655_.gif" alt="Invicta"></div><div class="brand-slide"><img src="https://www.ruzalem.com.br/image/cache/catalog/marcas/comment-mor-600x315w.jpg" alt="Mor"></div>
     </div>
 </div>
 
@@ -479,7 +491,7 @@
         
         <div class="grid-contatos">
             <div class="contato-item">
-                <img src="https://i.ibb.co/BxyXYSB/4976620624000257094.jpg" alt="SENADOR - AC"> <a href="https://wa.me/5500000000000" target="_blank" class="btn-whats-individual"> RIO BRANCO - AC
+                <img src="https://i.ibb.co/BxyXYSB/4976620624000257094.jpg" alt="SENADOR - AC"> <a href="https://wa.me/5568999564880" target="_blank" class="btn-whats-individual"> RIO BRANCO - AC
                 SENADOR
                 </a>
             </div>
@@ -492,7 +504,7 @@
             </div>
             
             <div class="contato-item">
-               <img src="https://i.ibb.co/mVMRWNn8/4976620624000257037-2.jpg" alt="SENADOR - AC"> <a href="https://wa.me/5500000000000" target="_blank" class="btn-whats-individual"> RIO BRANCO - AC
+               <img src="https://i.ibb.co/mVMRWNn8/4976620624000257037-2.jpg" alt="SENADOR - AC"> <a href="https://wa.me/5568999475326" target="_blank" class="btn-whats-individual"> RIO BRANCO - AC
                ESTAÇÃO
                 </a>
             </div>
@@ -514,6 +526,11 @@
         <div class="preco" style="color: var(--stihl-orange); font-weight: 900; font-size: 1.5rem;">Consulte Preço</div>
         <p style="color: #888; font-size: 0.9rem;">Produtos Originais com Garantia.</p>
     </div>
+</div>
+
+<div id="modal-imagem" onclick="fecharModalImagem()">
+    <span class="fechar-modal-branca" onclick="fecharModalImagem()">×</span>
+    <img id="img-ampliada" class="modal-image-only" src="" alt="Produto Ampliado">
 </div>
 
 <footer>
@@ -613,37 +630,52 @@
 
     const vitrine = document.getElementById('vitrine');
     const campoBusca = document.getElementById('busca');
-    const modal = document.getElementById('modal-galeria');
+    const modalLojas = document.getElementById('modal-galeria');
+    const modalImagem = document.getElementById('modal-imagem');
+    const imgAmpliada = document.getElementById('img-ampliada');
 
     function renderizar(lista) {
         vitrine.innerHTML = "";
         lista.forEach(p => {
             const card = document.createElement('div');
             card.className = 'card';
-            card.onclick = () => abrirGaleria(p);
+            // Removido o onclick do card inteiro
             card.innerHTML = `
                 <div class="card-tag">ORIGINAL</div>
-                <div class="img-wrapper">
+                <div class="img-wrapper" onclick="abrirApenasImagem('${p.fotos[0]}')">
                     <img src="${p.fotos[0]}" loading="lazy" onerror="this.src='https://via.placeholder.com/280x200?text=STIHL'">
                 </div>
                 <div>
                     <h3>${p.nome}</h3>
                     <span class="preco">${p.preco}</span>
                 </div>
-                <button class="btn-negociar" onclick="event.stopPropagation(); abrirGaleria(${JSON.stringify(p).replace(/"/g, '&quot;')})">Negociar</button>
+                <button class="btn-negociar" onclick="abrirLojas('${p.nome}')">Negociar</button>
             `;
             vitrine.appendChild(card);
         });
     }
 
-    function abrirGaleria(p) {
-        document.getElementById('modal-titulo').innerText = p.nome;
-        modal.style.display = "flex";
+    // FUNÇÃO: Abre a foto grande ao clicar na imagem
+    function abrirApenasImagem(src) {
+        imgAmpliada.src = src;
+        modalImagem.style.display = "flex";
+        document.body.style.overflow = "hidden";
+    }
+
+    // FUNÇÃO: Abre o card das lojas ao clicar no botão Negociar
+    function abrirLojas(nomeProduto) {
+        document.getElementById('modal-titulo').innerText = nomeProduto;
+        modalLojas.style.display = "flex";
         document.body.style.overflow = "hidden";
     }
 
     function fecharModal() {
-        modal.style.display = "none";
+        modalLojas.style.display = "none";
+        document.body.style.overflow = "auto";
+    }
+
+    function fecharModalImagem() {
+        modalImagem.style.display = "none";
         document.body.style.overflow = "auto";
     }
 

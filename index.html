@@ -76,7 +76,7 @@
             line-height: 1.6;
         }
 
-        /* --- HEADER COM IMAGEM DE FUNDO COMPLETA --- */
+        /* --- HEADER --- */
         header {
             background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
                         url('https://lh3.googleusercontent.com/d/1wCNVFFomvEfZv7I-VWbW9L9E3u_4ctBc');
@@ -107,33 +107,11 @@
             padding: 0 20px;
         }
 
-        /* --- ANIMAÇÃO DO NOME VETMAQ --- */
-        header h1 {
-            color: var(--white);
-            margin: 0 0 15px 0;
-            text-transform: uppercase;
-            font-size: 2.8rem;
-            letter-spacing: -1px;
-            font-weight: 900;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
-            animation: stihlColors 6s infinite alternate;
-        }
-
-        header h1 span {
-            color: var(--stihl-orange);
-            animation: stihlColorsSpan 6s infinite alternate;
-        }
-
-        @keyframes stihlColors {
-            0% { color: var(--white); }
-            50% { color: var(--stihl-orange); }
-            100% { color: #ff9955; }
-        }
-
-        @keyframes stihlColorsSpan {
-            0% { color: var(--stihl-orange); }
-            50% { color: var(--white); }
-            100% { color: var(--stihl-orange); }
+        /* CSS para a Foto do Logo */
+        .logo-foto {
+            max-width: 300px; /* Ajuste o tamanho aqui */
+            height: auto;
+            margin-bottom: 20px;
         }
 
         /* BUSCA */
@@ -232,7 +210,7 @@
             position: relative;
             overflow: hidden;
             animation: fadeIn 0.6s ease forwards;
-            cursor: default; /* Mudado para default pois o card todo não é mais um link */
+            cursor: default;
         }
 
         .card::before {
@@ -297,7 +275,7 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            cursor: zoom-in; /* Indica que a imagem pode ser ampliada */
+            cursor: zoom-in;
         }
 
         .card img {
@@ -362,7 +340,6 @@
         }
 
         @media (max-width: 600px) {
-            header h1 { font-size: 1.8rem; }
             header { padding: 30px 0; }
             .grid-produtos { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .card { padding: 12px; }
@@ -387,7 +364,6 @@
             animation: zoomIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         
-        /* Modal de Imagem Específico */
         .modal-image-only {
             max-width: 90%;
             max-height: 90%;
@@ -445,7 +421,8 @@
 
 <header>
     <div class="header-content">
-        <h1>VET<span>MAQ</span></h1>
+        <img src="https://i.postimg.cc/13Rfz6bY/4956668516635446083.png" alt="Logo" class="logo-foto">
+        
         <div class="search-container">
             <input type="text" id="busca" placeholder="O que você procura?">
         </div>
@@ -463,18 +440,19 @@
         <div class="brand-slide"><img src="https://kaef.shop/wp-content/uploads/2023/09/KAEF-Logo-schwarz.png" alt="Kaef"></div>
         <div class="brand-slide"><img src="https://logodownload.org/wp-content/uploads/2017/04/mondial-logo-1.png" alt="Mondial"></div>
         <div class="brand-slide"><img src="https://cdn.awsli.com.br/400x300/566/566663/logo/89abae50f7.png" alt="Chiaperini"></div>
-        <div class="brand-slide"><img src="https://www.gobamco.com/wp-content/uploads/2014/04/IN-Logo-Yellow-Black._V391056655_.gif" alt="Invicta"></div><div class="brand-slide"><img src="https://www.ruzalem.com.br/image/cache/catalog/marcas/mor-600x315w.jpg" alt="Mor"></div>
-        
+        <div class="brand-slide"><img src="https://www.gobamco.com/wp-content/uploads/2014/04/IN-Logo-Yellow-Black._V391056655_.gif" alt="Invicta"></div>
+        <div class="brand-slide"><img src="https://www.ruzalem.com.br/image/cache/catalog/marcas/mor-600x315w.jpg" alt="Mor"></div>
         <div class="brand-slide"><img src="https://logodownload.org/wp-content/uploads/2021/03/stanley-logo-1.png" alt="Stanley"></div>
         <div class="brand-slide"><img src="https://www.branco.com.br/content/dam/Branco/Latin%20America/Portuguese-BR/Images/About%20Us/logo_branco_560x250.jpg" alt="Branco"></div>
         <div class="brand-slide"><img src="https://1000marcas.net/wp-content/uploads/2020/11/Stihl-Logo.png" alt="Stihl"></div>
         <div class="brand-slide"><img src="https://logodownload.org/wp-content/uploads/2019/11/starrett-logo-1.png" alt="Starrett"></div>
-        <div class="brand-slide"><img src="https://images.seeklogo.com/logo-png/12/2/schneider-motobombas-logo-png_seeklogo-123512.png" alt="Schneider"></div>
+        <div class="brand-slide"><img src="https://images.seeklogo.com/logo-png/12/1/schneider-motobombas-logo-png_seeklogo-123512.png" alt="Schneider"></div>
         <div class="brand-slide"><img src="https://melhorindustria.com.br/media/image/d6/d5/85/foxluxlogo.png" alt="Foxlux"></div>
         <div class="brand-slide"><img src="https://kaef.shop/wp-content/uploads/2023/09/KAEF-Logo-schwarz.png" alt="Kaef"></div>
         <div class="brand-slide"><img src="https://logodownload.org/wp-content/uploads/2017/04/mondial-logo-1.png" alt="Mondial"></div>
         <div class="brand-slide"><img src="https://cdn.awsli.com.br/400x300/566/566663/logo/89abae50f7.png" alt="Chiaperini"></div>
-        <div class="brand-slide"><img src="https://www.gobamco.com/wp-content/uploads/2014/04/IN-Logo-Yellow-Black._V391056655_.gif" alt="Invicta"></div><div class="brand-slide"><img src="https://www.ruzalem.com.br/image/cache/catalog/marcas/comment-mor-600x315w.jpg" alt="Mor"></div>
+        <div class="brand-slide"><img src="https://www.gobamco.com/wp-content/uploads/2014/04/IN-Logo-Yellow-Black._V391056655_.gif" alt="Invicta"></div>
+        <div class="brand-slide"><img src="https://www.ruzalem.com.br/image/cache/catalog/marcas/mor-600x315w.jpg" alt="Mor"></div>
     </div>
 </div>
 
@@ -485,43 +463,25 @@
 <div id="modal-galeria" onclick="fecharModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
         <span class="fechar-modal" onclick="fecharModal()">×</span>
-        
         <h2 id="modal-titulo" style="margin-top: 10px;"></h2>
         <p style="color: #666; margin-bottom: 5px;">Escolha uma loja para negociar este produto:</p>
-        
         <div class="grid-contatos">
             <div class="contato-item">
-                <img src="https://i.ibb.co/BxyXYSB/4976620624000257094.jpg" alt="SENADOR - AC"> <a href="https://wa.me/5568999564880" target="_blank" class="btn-whats-individual"> RIO BRANCO - AC
-                SENADOR
-                </a>
+                <img src="https://i.ibb.co/BxyXYSB/4976620624000257094.jpg" alt="SENADOR - AC"> <a href="https://wa.me/5568999564880" target="_blank" class="btn-whats-individual"> RIO BRANCO - AC SENADOR </a>
             </div>
-            
             <div class="contato-item">
-                <img src="https://i.ibb.co/TqwB0mj5/4976620624000257038-2.jpg" alt="BOSQUE - AC"> <a href="https://wa.me/5568999807980" target="_blank" class="btn-whats-individual"> RIO BRANCO - AC
-                BOSQUE
-                
-                </a>
+                <img src="https://i.ibb.co/TqwB0mj5/4976620624000257038-2.jpg" alt="BOSQUE - AC"> <a href="https://wa.me/5568999807980" target="_blank" class="btn-whats-individual"> RIO BRANCO - AC BOSQUE </a>
             </div>
-            
             <div class="contato-item">
-               <img src="https://i.ibb.co/mVMRWNn8/4976620624000257037-2.jpg" alt="SENADOR - AC"> <a href="https://wa.me/5568999475326" target="_blank" class="btn-whats-individual"> RIO BRANCO - AC
-               ESTAÇÃO
-                </a>
+               <img src="https://i.ibb.co/mVMRWNn8/4976620624000257037-2.jpg" alt="SENADOR - AC"> <a href="https://wa.me/5568999475326" target="_blank" class="btn-whats-individual"> RIO BRANCO - AC ESTAÇÃO </a>
             </div>
-            
             <div class="contato-item">
-                <img src="https://via.placeholder.com/150?text=Foto+4" alt="PLATÔ DO PIQUIÁ - AM"> <a href="https://wa.me/5500000000000" target="_blank" class="btn-whats-individual"> BOCA DO ACRE - AM
-                PLATÔ DO PIQUIÁ
-                </a>
+                <img src="https://via.placeholder.com/150?text=Foto+4" alt="PLATÔ DO PIQUIÁ - AM"> <a href="https://wa.me/5500000000000" target="_blank" class="btn-whats-individual"> BOCA DO ACRE - AM PLATÔ DO PIQUIÁ </a>
             </div>
-            
             <div class="contato-item">
-                <img src="https://via.placeholder.com/150?text=Foto+5" alt="CENTRO - AM"> <a href="https://wa.me/5500000000000" target="_blank" class="btn-whats-individual"> BOCA DO ACRE - AM
-                CENTRO
-                </a>
+                <img src="https://via.placeholder.com/150?text=Foto+5" alt="CENTRO - AM"> <a href="https://wa.me/5500000000000" target="_blank" class="btn-whats-individual"> BOCA DO ACRE - AM CENTRO </a>
             </div>
         </div>
-
         <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
         <div class="preco" style="color: var(--stihl-orange); font-weight: 900; font-size: 1.5rem;">Consulte Preço</div>
         <p style="color: #888; font-size: 0.9rem;">Produtos Originais com Garantia.</p>
@@ -639,7 +599,6 @@
         lista.forEach(p => {
             const card = document.createElement('div');
             card.className = 'card';
-            // Removido o onclick do card inteiro
             card.innerHTML = `
                 <div class="card-tag">ORIGINAL</div>
                 <div class="img-wrapper" onclick="abrirApenasImagem('${p.fotos[0]}')">
@@ -655,14 +614,12 @@
         });
     }
 
-    // FUNÇÃO: Abre a foto grande ao clicar na imagem
     function abrirApenasImagem(src) {
         imgAmpliada.src = src;
         modalImagem.style.display = "flex";
         document.body.style.overflow = "hidden";
     }
 
-    // FUNÇÃO: Abre o card das lojas ao clicar no botão Negociar
     function abrirLojas(nomeProduto) {
         document.getElementById('modal-titulo').innerText = nomeProduto;
         modalLojas.style.display = "flex";

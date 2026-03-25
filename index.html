@@ -1,4 +1,35 @@
-<!DOCTYPE html><html><head><style>/* Estilo do Menu e Abas */
+<!DOCTYPE html><html><head><style>/* Container das Marcas */
+.submenu-marcas {
+    display: none; /* Escondido por padrão */
+    background: #f9f9f9;
+    flex-direction: column; /* Garante uma embaixo da outra */
+    width: 100%;
+    max-height: 300px;
+    overflow-y: auto;
+    border-top: 1px solid #ddd;
+}
+
+/* Estilo de cada nome de marca */
+.submenu-marcas span {
+    display: block;
+    padding: 12px 25px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+    width: 100%;
+}
+
+.submenu-marcas span:hover {
+    background: #ff5900; /* Laranja STIHL */
+    color: white;
+}
+
+/* Mostra a lista quando clicado */
+.submenu-marcas.show {
+    display: flex; /* Ativa o modo coluna */
+}</style></head><body><!DOCTYPE html><html><head><style>/* Estilo do Menu e Abas */
 .menu-container {
     position: fixed;
     top: 20px;
@@ -538,8 +569,25 @@
     <button class="menu-toggle" onclick="toggleMenu()">☰ Menu</button>
     <div id="menu-tabs" class="menu-tabs">
         <a href="javascript:void(0)" onclick="irParaContatos()">Contatos</a>
-        <a href="https://wnetbr.github.io/-" target="_self">Desenvolvedor</a>
+        
+        <a href="javascript:void(0)" onclick="toggleSubmenu(event)">Categoria ▾</a>
+        
+        <div id="submenu-marcas" class="submenu-marcas">
+            <span onclick="selecionarMarcaMenu('Stihl')">STIHL</span>
+            <span onclick="selecionarMarcaMenu('Stanley')">STANLEY</span>
+            <span onclick="selecionarMarcaMenu('Branco')">BRANCO</span>
+            <span onclick="selecionarMarcaMenu('TEKBOND')">TEKBOND</span>
+            <span onclick="selecionarMarcaMenu('NGK')">NGK</span>
+            <span onclick="selecionarMarcaMenu('BESTFER')">BESTFER</span>
+            <span onclick="selecionarMarcaMenu('PADO')">PADO</span>
+            <span onclick="selecionarMarcaMenu('GERDAU')">GERDAU</span>
+            <span onclick="selecionarMarcaMenu('EMTOP')">EMTOP</span>
+            <span onclick="selecionarMarcaMenu('Starrett')">STARRETT</span>
+            <span onclick="selecionarMarcaMenu('Mondial')">MONDIAL</span>
+            <span onclick="selecionarMarcaMenu('Chiaperini')">CHIAPERINI</span>
+        </div>
     </div>
+</div>
 </div>
 </header>
 
@@ -984,5 +1032,39 @@ window.onclick = function(event) {
                 openDropdown.classList.remove('active');
             }
         }
+    }
+}</script></body></html><script>// Abre/Fecha o menu principal
+function toggleMenu() {
+    const menu = document.getElementById('menu-tabs');
+    menu.classList.toggle('active');
+}
+
+// Abre as categorias IMEDIATAMENTE sem fechar o menu pai
+function toggleSubmenu(event) {
+    if (event) event.stopPropagation(); // Impede o fechamento do menu ao clicar em Categoria
+    const submenu = document.getElementById('submenu-marcas');
+    submenu.classList.toggle('show');
+}
+
+// Quando clicar na marca, preenche a busca e fecha TUDO
+function selecionarMarcaMenu(nomeMarca) {
+    const campoBusca = document.getElementById('busca');
+    
+    if (campoBusca) {
+        campoBusca.value = nomeMarca;
+        campoBusca.dispatchEvent(new Event('input')); // Filtra os produtos
+        
+        // Rola até os produtos
+        const vitrine = document.getElementById('vitrine');
+        if (vitrine) {
+            window.scrollTo({
+                top: vitrine.offsetTop - 100,
+                behavior: 'smooth'
+            });
+        }
+
+        // Agora sim, fecha o menu e o submenu
+        document.getElementById('submenu-marcas').classList.remove('show');
+        document.getElementById('menu-tabs').classList.remove('active');
     }
 }</script></body></html>

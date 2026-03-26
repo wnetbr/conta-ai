@@ -1,4 +1,37 @@
-<style>/* Container das Marcas */
+<!DOCTYPE html><html><head><style>@media (max-width: 600px) {
+    header { padding: 30px 0; }
+    
+    /* Ajuste da grade para não esmagar os cards */
+    .grid-produtos { 
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 10px; 
+    }
+    
+    .card { 
+        padding: 10px; 
+        height: 100%; /* Faz todos os cards da mesma linha terem o mesmo tamanho */
+        display: flex;
+        flex-direction: column;
+    }
+
+    .img-wrapper { height: 120px; }
+
+    /* CORREÇÃO DO NOME COMPLETO */
+    .card h3 { 
+        font-size: 0.8rem; 
+        height: auto;           /* Remove a trava de 35px */
+        min-height: 50px;       /* Garante um espaço mínimo para manter o alinhamento */
+        display: block;         /* Permite que o texto ocupe as linhas que precisar */
+        overflow: visible;      
+        -webkit-line-clamp: unset; 
+        white-space: normal;    /* Força a quebra de linha */
+        margin-bottom: 8px;
+        line-height: 1.2;
+    }
+
+    .card .preco { font-size: 1rem; margin-top: auto; }
+    .btn-negociar { font-size: 0.65rem; padding: 10px 2px; }
+}</style></head><body><style>/* Container das Marcas */
 .submenu-marcas {
     display: none; /* Escondido por padrão */
     background: #f9f9f9;
@@ -1092,4 +1125,4 @@ function selecionarMarcaMenu(nomeMarca) {
         document.getElementById('submenu-marcas').classList.remove('show');
         document.getElementById('menu-tabs').classList.remove('active');
     }
-}</script><script></script>
+}</script><script></script><script></script></body></html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><style>/* Container das Marcas */
+<style>/* Container das Marcas */
 .submenu-marcas {
     display: none; /* Escondido por padrão */
     background: #f9f9f9;
@@ -29,7 +29,7 @@
 /* Mostra a lista quando clicado */
 .submenu-marcas.show {
     display: flex; /* Ativa o modo coluna */
-}</style></head><body><!DOCTYPE html><html><head><style>/* Estilo do Menu e Abas */
+}</style><style>/* Estilo do Menu e Abas */
 .menu-container {
     position: fixed;
     top: 20px;
@@ -79,7 +79,7 @@
 /* Exibir menu quando ativo */
 .menu-tabs.active {
     display: flex;
-}</style></head><body><style>/* --- AJUSTE ESPECÍFICO PARA FOTOS DAS LOJAS NO MODAL (CELULAR) --- */
+}</style><style>/* --- AJUSTE ESPECÍFICO PARA FOTOS DAS LOJAS NO MODAL (CELULAR) --- */
 @media (max-width: 600px) {
     /* Ajusta o container do modal para usar melhor o espaço */
     #modal-galeria .modal-content {
@@ -585,10 +585,28 @@
             <span onclick="selecionarMarcaMenu('Starrett')">STARRETT</span>
             <span onclick="selecionarMarcaMenu('Mondial')">MONDIAL</span>
             <span onclick="selecionarMarcaMenu('Chiaperini')">CHIAPERINI</span>
-        </div>
+            <span onclick="selecionarMarcaMenu('Mor')">MOR</span>
+            <span onclick="selecionarMarcaMenu('FoxLux')">FOXLUX</span>
+            <span onclick="selecionarMarcaMenu('Multi Home')">MULTI HOME</span>
+            <span onclick="selecionarMarcaMenu('Plastman')">PLASTMAN</span>
+            <span onclick="selecionarMarcaMenu('Noll')">NOLL</span>
+            <span onclick="selecionarMarcaMenu('Rhino Tools')">RHINO TOOLS</span>
+            <span onclick="selecionarMarcaMenu('Botini')">BOTINI</span>
+            <span onclick="selecionarMarcaMenu('Vencedora')">VENCEDORA</span>
+            <span onclick="selecionarMarcaMenu('Acerlor Mittal')">ACERLOR MITTAL</span>
+            <span onclick="selecionarMarcaMenu('Elgin')">ELGIN</span>
+            <span onclick="selecionarMarcaMenu('Feltrin')">FELTRIN</span>
+            <span onclick="selecionarMarcaMenu('Schineider')">SCHINEIDER</span>
+            <span onclick="selecionarMarcaMenu('Invicta')">INVICTA</span>
+            <span onclick="selecionarMarcaMenu('Campeiro')">CAMPEIRO</span>
+            <span onclick="selecionarMarcaMenu('Metvisa')">METVISA</span>
+            <span onclick="selecionarMarcaMenu('Stilex')">STILEX</span>
+            <span onclick="selecionarMarcaMenu('3M')">3M</span>
+            <span onclick="selecionarMarcaMenu('Thompson')">THOMPSON</span>
+          </div>
     </div>
 </div>
-</div>
+
 </header>
 
 <div class="brand-carousel">
@@ -596,6 +614,13 @@
         <div class="brand-slide"><img src="https://logodownload.org/wp-content/uploads/2021/03/stanley-logo-1.png" alt="Stanley"></div>
         <div class="brand-slide"><img src="https://www.branco.com.br/content/dam/Branco/Latin%20America/Portuguese-BR/Images/About%20Us/logo_branco_560x250.jpg" alt="Branco"></div>
         <div class="brand-slide"><img src="https://1000marcas.net/wp-content/uploads/2020/11/Stihl-Logo.png" alt="Stihl"></div>
+        <div class="brand-slide"><img src="https://www.rhinotools.cl/wp-content/uploads/2021/03/Logotipo-Rhino-tools-PNG.png" alt="RHINO TOOLS"></div>
+        <div class="brand-slide"><img src="https://www.botini.com.br/imagens/logo_botini.png" alt="BOTINI"></div>
+        <div class="brand-slide"><img src="https://www.quirinoequipamentos.com.br/wp-content/uploads/2021/02/quirinoequipamentos_autorizada_das_marcas1-1.jpg" alt="VENCEDORA"></div>
+        <div class="brand-slide"><img src="https://www.maquinadecartao.com/img/1/elgin-logo-fabricante-de-maquininha-de-cartao-david-tech.webp" alt="ELGIN"></div>
+        <div class="brand-slide"><img src="https://logodownload.org/wp-content/uploads/2018/07/arcelormittal-logo-2.png" alt="ACERLOR MITTAL"></div>
+        <div class="brand-slide"><img src="https://dcdn-us.mitiendanube.com/stores/003/908/400/themes/common/logo-1232177830-1741580075-3d55a29560947c277e96207b0186a68d1741580075.png?0" alt="CAMPEIRO"></div>
+        <div class="brand-slide"><img src="https://arcombortoli.com.br/uploads/representadas/fc91708d2d247f12741a9cf10929b131.png" alt="METVISA"></div>
         <div class="brand-slide"><img src="https://sodivel.com.br/wp-content/uploads/2024/08/Tekbond.png" alt="TEKBOND"></div>
         <div class="brand-slide"><img src="https://i.ebayimg.com/images/g/9FYAAOSw21Rbxi~o/s-l1200.jpg" alt="NGK"></div>
         <div class="brand-slide"><img src="https://images.seeklogo.com/logo-png/35/2/bestfer-logo-png_seeklogo-358419.png" alt="BESTFER"></div>
@@ -773,7 +798,7 @@
         { nome: "Pinta Fácil 500W Chiaperini", preco: "Consulte Preço", fotos: ["https://www.hidrochagascompressores.com.br/wp-content/uploads/2025/04/11406-Pistola-Pulverizadora-PintaFacil-220V-500W-1.png"] },
         { nome: "Compressor 2HP Chiaperini", preco: "Consulte Preço", fotos: ["https://ccp.vtexassets.com/arquivos/ids/331037/compressor_de_ar_media_pressao_10_pcm_110_litros_chiaperini_10_110_blue_1097_1_13f3ba6e97772a8198ffce9290d2bf85.jpg?v=639070426320070000"] },
         { nome: "Compressor Red 2,3 Pés Chiaperini", preco: "Consulte Preço", fotos: ["https://cdn.awsli.com.br/2396/2396398/produto/155349452559d4f6c13.jpg"] },
-        { nome: "Compressor 21 Litros Chiaperini", preco: "Consulte Preço", fotos: ["https://images.tcdn.com.br/img/img_prod/1152603/motocompressor_de_ar_21_litros_2hp_chiaperini_mc_7_6_21_220_v_mono_22843_3593_1_2668ebf13edad1dee06d50bc27da793c.jpg"] },
+        { nome: "Compressor 21 Litros Chiaperini", prFVeco: "Consulte Preço", fotos: ["https://images.tcdn.com.br/img/img_prod/1152603/motocompressor_de_ar_21_litros_2hp_chiaperini_mc_7_6_21_220_v_mono_22843_3593_1_2668ebf13edad1dee06d50bc27da793c.jpg"] },
         { nome: "Disco de Corte Fino Stanley", preco: "Consulte Preço", fotos: ["https://cdn.awsli.com.br/2500x2500/2317/2317996/produto/263930229/1178649_principal-r4zrf3fk2r.jpg"] },
         { nome: "Jogo de Chave Combinada Stanley", preco: "Consulte Preço", fotos: ["https://http2.mlstatic.com/D_NQ_NP_2X_686731-MLA99936326213_112025-F.webp"] },
         { nome: "Ventilador Super Power Mondial", preco: "Consulte Preço", fotos: ["https://m.media-amazon.com/images/I/81r2JL+Ru5L.jpg"] },
@@ -791,7 +816,7 @@
         { nome: "Macaco Hidraulico 6T Noll", preco: "Consulte Preço", fotos: ["https://static.corremol.com.br/public/corremol/imagens/produtos/macaco-garrafa-6-toneladas-noll-2952.jpg"] },
         { nome: "Macaco Hidraulico 4T Noll", preco: "Consulte Preço", fotos: ["https://static.corremol.com.br/public/corremol/imagens/produtos/macaco-garrafa-4-toneladas-noll-2948.jpg"] },
         { nome: "Macaco Hidraulico 2T Noll", preco: "Consulte Preço", fotos: ["https://images.tcdn.com.br/img/img_prod/736567/macaco_hidraulico_tipo_garrafa_2t_noll_1079_1_20230816181323.jpg"] },
-        { nome: "Furadeira Manual com Catraca Rino Tools", preco: "Consulte Preço", fotos: ["https://http2.mlstatic.com/D_NQ_NP_909755-MLB77603670972_072024-O.webp"] },
+        { nome: "Furadeira Manual com Catraca Rhino Tools", preco: "Consulte Preço", fotos: ["https://http2.mlstatic.com/D_NQ_NP_909755-MLB77603670972_072024-O.webp"] },
         { nome: "Cilindro Manual Standard N3 Botini", preco: "Consulte Preço", fotos: ["https://http2.mlstatic.com/D_NQ_NP_849583-MLB76929447540_062024-O.webp"] },
         { nome: "Trena de 10 Metros X25 MM Emtop", preco: "Consulte Preço", fotos: ["https://parceiraoatacadista.agilecdn.com.br/29506_1.jpg"] },
         { nome: "Trena de 8 Metros x25 mm Emtop", preco: "Consulte Preço", fotos: ["https://parceiraoatacadista.agilecdn.com.br/29506_1.jpg"] },
@@ -825,7 +850,7 @@
         { nome: "Prego 17x21 Gerdau", preco: "Consulte Preço", fotos: ["https://cdn.awsli.com.br/2261/2261856/produto/220646246/imagem_2023-06-1-377ruyc5ep.png"] },
         { nome: "Prego 12x12 Gerdau", preco: "Consulte Preço", fotos: ["https://images.tcdn.com.br/img/img_prod/808976/pregos_12x12_c_cabeca_pacote_1kg_gerdau_3756_2_e907433e2e433e45e86c589a7e7e86a7.jpg"] },
         { nome: "Grampo 19x11 Gerdau", preco: "Consulte Preço", fotos: ["https://cdn.awsli.com.br/416/416992/arquivos/041033_z_large.jpg"] },
-        { nome: "Prego 17x27 Acerkor Mittal", preco: "Consulte Preço", fotos: ["https://http2.mlstatic.com/D_NQ_NP_910209-MLB80371722973_112024-O.webp"] },
+        { nome: "Prego 17x27 AcerLor Mittal", preco: "Consulte Preço", fotos: ["https://http2.mlstatic.com/D_NQ_NP_910209-MLB80371722973_112024-O.webp"] },
         { nome: "Fritadeira Elétrica Elgin", preco: "Consulte Preço", fotos: ["https://www.dutramaquinas.com.br/shared/img/produto/alta/419300_fritadeira_eletrica_sem_oleo_air_fryer_3_5l_1_400_watts_start_fry.webp"] },
         { nome: "Batedeira 400 Watts Mondial", preco: "Consulte Preço", fotos: ["https://m.media-amazon.com/images/I/718tRwVNnZL._AC_UF894,1000_QL80_.jpg"] },
         { nome: "Triturador de Milho Simples Botini", preco: "Consulte Preço", fotos: ["https://down-br.img.susercontent.com/file/br-11134201-23010-es4ded5qlfmva3"] },
@@ -1033,7 +1058,7 @@ window.onclick = function(event) {
             }
         }
     }
-}</script></body></html><script>// Abre/Fecha o menu principal
+}</script><script>// Abre/Fecha o menu principal
 function toggleMenu() {
     const menu = document.getElementById('menu-tabs');
     menu.classList.toggle('active');
@@ -1067,4 +1092,4 @@ function selecionarMarcaMenu(nomeMarca) {
         document.getElementById('submenu-marcas').classList.remove('show');
         document.getElementById('menu-tabs').classList.remove('active');
     }
-}</script></body></html>
+}</script><script></script>
